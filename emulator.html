@@ -1,10 +1,52 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
 </head>
 <body>
-</body
+
+<p>
+  I suggested that using an alternate data representation rather than writing the gates directly into code would be 
+  more convenient and maintainable. However, writing a parser is quite a lot of work upfront. Can we cheat by using
+  the pre-existing parser of Javascript?
+</p>
+<p>
+  At this level of simplicity we're only interested in representing the most basic items that make up a <i>netlist</i>:
+  wires (nets) and gates.
+</p>
+
+<p>
+  <pre id='example-1'>
+  </pre>
+</p>
+
+<script>
+  function Wire() { return new Object}
+  function Clock() { return new Object}
+  function And(out, a, b) {}
+  function Or(out, a, b) {}
+  function Not(out, a) {}
+  function DFF(q, qbar, clk, d, reset) {}
+</script>
+
+<script id="code-example-1">
+  var qbar = new Wire()
+  var qinv = new Wire()
+  var q = new Wire()
+  var dinput = new Wire()
+  var clk = new Clock()
+
+  Not(qinv, q)
+  And(dinput, qinv, qbar)
+  DFF(q, qbar, clk, dinput, null)
+</script>
+
+
+<script>
+  // Not part of the emulator, but set up the document
+  $('#example-1').text($('#code-example-1').html())
+</script>
+
+</body>
 </html>
